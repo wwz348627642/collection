@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+ul{
+	list-style:none;
+}
+.calendar{
+	width:100%;
+	margin:0 auto;
+}
+.calendar .calendar_nav{
+	width:100%;
+}
+.calendar .calendar_nav span{
+	
+}
+.calendar .calendar_week:after{
+	content:"";
+	display: block;
+	clear:both;
+}
+.calendar .calendar_week li{
+	width:14.2857%;
+	float:left;
+	text-align: center;
+}
+.calendar_content{
+	width:99%;
+	margin-left:1%;
+}
+.calendar_content:after{
+	content:"";
+	display:block;
+	clear:both;
+}
+.calendar_content a{
+	width:13.2857%;
+	margin-right:1%;
+	margin-top:8px;
+	float:left;
+	height:60px;
+	box-sizing:border-box;
+	border:1px #f90 solid;
+	border-radius:6px;
+	padding:5px;
+	cursor: pointer;
+}
+.today{
+	border:1px #f00 solid !important;
+	color:#f00 !important;
+}
+.calendar_content a span{
+	display: inline-block;
+	width:22px;
+	height:22px;
+	text-align:center;
+	line-height:22px;
+	border-radius:50%;
+}
+.calendar_content a div{
+	text-align: center;
+	font-size:12px;
+}
+.WilsonWang{
+	background: #f90;
+	color:#fff;
+}
+	</style>
+</head>
+<body>
+	<div class="calendar">
+		<div class="calendar_nav">
+			<span></span>
+		</div>
+		<ul class="calendar_week">
+			<li>星期日</li>
+			<li>星期一</li>
+			<li>星期二</li>
+			<li>星期三</li>
+			<li>星期四</li>
+			<li>星期五</li>
+			<li>星期六</li>
+		</ul>
+		<div class="calendar_content"></div>
+	</div>
+	<script type="text/javascript">
+function Calendar(userSetData,data){
+	var container = document.getElementsByClassName('calendar_content')[0];
+	var time = new Date();
+	var year =  userSetData.year ? userSetData.year : time.getFullYear();
+	var month = userSetData.month ? userSetData.month : time.getMonth()+1;
+	var nowYear = time.getFullYear();
+	var nowMonth = time.getMonth()+1;
+	var day = time.getDate();
+	//获取某月1日是星期几
+	var weekDay = function(year,month){
+		var setTime = new Date();
+		setTime.setFullYear(year,month-1,1);
+		return setTime.getDay();
+	}(year,month)
+	//获取某月份的最大天数
+	var maxDay = function(year,month){
+		var a = new Date(year,month,0).getDate();
+		return a;
+	}(year,month);
+	//创建容器
+	(function(){
+		var j = (maxDay + weekDay) > 35 ? 7 : 0 ;
+		for(var i = 0;i < (35+j); ++i){
+			var aTag = document.createElement('a');
+			container.appendChild(aTag);	
+		}
+	}());
+	//calendar_nav里span的内容
+	(function(){
+		var calendarNav = document.getElementsByClassName('calendar_nav')[0];
+		var spanTag = calendarNav.getElementsByTagName('span');
+		for(var i=0;i<spanTag.length;++i){
+			spanTag[i].innerHTML = year+"-"+(month+i);
+		}
+	}());
+	//有天数内容的话插入span
+	(function(){
+		var a = container.getElementsByTagName('a');
+		for(var i = weekDay;i<(maxDay+ weekDay);++i){
+			var spanTag = document.createElement('span');
+			a[i].appendChild(spanTag);	
+		}
+	}());
+	//给span插入天数
+	(function(){
+		var span = container.getElementsByTagName('span');
+		var nowTime = nowYear+"-"+nowMonth+"-"+day;
+		for(var i=0;i<maxDay;++i){
+			span[i].innerHTML = i+1;
+			span[i].setAttribute('data-time',year+"-"+month+"-"+(i+1));
+			var spanDataTime = span[i].getAttribute('data-time');
+			if(spanDataTime==nowTime){
+				span[i].className = "today";
+			}
+		}
+	}());
+	//数据处理
+	function insetData(time,data,length){
+		var span = container.getElementsByTagName('span');
+		var  a = container.getElementsByTagName('a');
+		var MaxLength = span.length;
+		for(var i=0;i<span.length;++i){
+			var spanDataTime = span[i].getAttribute('data-time');		
+			//比对日期，成功的话，插入数据;
+			if(spanDataTime==time){
+				var div = document.createElement('div');
+				span[i].parentNode.appendChild(div);
+				div.innerHTML = data;
+				var index = i;
+				//给有数据信息的格子绑定事件		
+				span[i].parentNode.onmouseover = function(){
+					for(var j=(index+weekDay);j<((length+index+weekDay) > MaxLength ? MaxLength : (length+index+weekDay));++j){
+						a[j].className = "WilsonWang";
+					}
+				};
+				span[i].parentNode.onmouseout = function(){
+					for(var j=(index+weekDay);j<((length+index+weekDay) > MaxLength ? MaxLength : (length+index+weekDay));++j){
+						a[j].className = "";
+					}
+				};
+			}
+		}
+	};
+	//接受数据，并执行函数
+	var data = data ? data : "";
+	for(var i=0; i<data.length; ++i){
+		insetData(data[i].data,data[i].content,data[i].length)
+	}
+}
+</script>
+
+<script>
+var data = [{ "data":"2017-2-12","content":"内容一","length":7},{ "data":"2016-6-12","content":"内容二","length":7},{ "data":"2016-5-31","content":"内容三","length":6}];//模拟的后台数据
+Calendar({
+	//year:2017,
+	//month:2
+},data);//运行日历函数,可接受用户自定义的年月,第一个参数为日期，第二格参数为数据,可选
+</script>
+</body>
+</html>
