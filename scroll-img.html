@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<style>
+*{
+	margin:0;
+	padding:0;
+}
+ul{
+	list-style:none;
+}
+.content_left_top{
+	width:800px;
+	margin:0 auto;
+	position: relative;
+	box-sizing:border-box;
+	border:1px #ccc solid;
+	overflow: hidden;
+}
+.content_left_top ul{
+	position: relative;
+}
+.content_left_top ul:after{
+	content:"";
+	display: block;
+	clear:both;
+}
+.content_left_top ul li{
+	float:left;
+	box-sizing:border-box;
+}
+.content_left_top ul li img{
+	width:100%;
+	height:350px;
+}
+.content_left_down{
+	width:100%;
+	padding:0 3%;
+	position: relative;
+	box-sizing:border-box;
+	border:1px #ccc solid;
+	margin-top:5px;
+}
+.content_left_down a.left_btn{
+	left:0;
+	position: absolute;
+	top:0;
+	line-height: 108px;
+	width:3%;
+	background: #eee;
+	text-align: center;	
+}
+.content_left_down a.right_btn{
+	right:0;
+	position: absolute;
+	top:0;
+	width:3%;
+	background: #eee;
+	line-height: 108px;
+	text-align: center;
+}
+.content_left_down ul{
+	width:100%;
+}
+.content_left_down ul:after{
+	content:"";
+	display: block;
+	clear:both;
+}
+.content_left_down ul li{
+	width:20%;
+	float:left;
+	box-sizing:border-box;
+}
+.content_left_down ul li img{
+	width:100%;
+	height:100px;
+}
+.border_color{
+	border:4px #f90 solid;
+}
+	</style>
+</head>
+<body>
+	<div class="content_left">
+		<div class="content_left_top">
+			<ul>
+				<!-- foreach limit = 5 -->
+				<li><img src="images/1.jpg"></li>
+				<li><img src="images/2.jpg"></li>
+				<li><img src="images/3.jpg"></li>
+				<li><img src="images/4.jpg"></li>
+				<li><img src="images/5.jpg"></li>
+				<!-- /foreach -->
+			</ul>
+		</div>
+		<div class="content_left_down"><!-- 以下li的数量对应上面li的数量 -->
+			<a href="javascript:void(0)" class="fa fa-chevron-left left_btn">&lt;</a>
+			<a href="javascript:void(0)" class="fa fa-chevron-right right_btn">&gt;</a>
+			<ul>
+				<!-- foreach limit = 5 -->
+				<li class="border_color"><img src="images/1.jpg"></li>
+				<li><img src="images/2.jpg"></li>
+				<li><img src="images/3.jpg"></li>
+				<li><img src="images/4.jpg"></li>
+				<li><img src="images/5.jpg"></li>
+				<!-- /foreach -->
+			</ul>
+		</div>
+	</div>
+	<script>			
+		$(function(){
+			"use strict";
+				//a=1;严格模式下，未申明的变量报错
+			var LiWidth = $(".content_left").width();
+			var staticWidth = LiWidth;				 
+			var LiSize = $(".content_left_top").find("li").size();
+			//设定容器			
+			(function(){
+				$(".content_left_top").children().width(LiWidth*LiSize+"px")
+				$(".content_left_top").find("li").width(LiWidth+"px");
+			}());
+			//点击哪个图片，滚动到那张图片
+			function bigImgScroll(count){
+				var scrollLength = LiWidth+count*staticWidth;
+				$(".content_left_top").children().stop().animate({right:scrollLength+"px"});
+			}
+			//点击图片
+			$(".content_left_down").find("li").click(function(){
+				var index = $(this).index()-1;
+				$(this).addClass("border_color").siblings().removeClass("border_color");
+				bigImgScroll(index);
+			})
+			//点击向左按钮
+			$(".left_btn").click(function(){
+				var index = $(".border_color").index();
+				--index;
+				if(index<0){
+					index = LiSize-1;
+				}
+				$(".content_left_down").find("li").eq(index).click();
+			})
+			//点击向右按钮
+			$(".right_btn").click(function(){
+				var index = $(".border_color").index();
+				++index;
+				if(index>(LiSize-1)){
+					index = 0;
+				};
+				$(".content_left_down").find("li").eq(index).click(); 
+			})	
+		})
+	</script>
+</body>
+</html>
