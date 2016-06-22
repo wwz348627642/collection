@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+    <title>判断移动设备的屏幕旋转角度</title>
+</head>
+<body>
+    <div id="div" style="width: 500px; height: 100px; border: 1px #ccc solid;">初次加载</div>
+    <script> 
+    function orientationChange() {
+        var div = document.querySelector('#div');
+        switch(window.screen.orientation.angle) {
+        　　case 0:
+                div.innerHTML = '旋转0度';
+                break;
+        　　case -90: 
+                div.innerHTML = '左旋90度';
+                break;
+        　　case 90:   
+                div.innerHTML = '右旋90度';
+                break;
+        　　case 180:   
+            　　div.innerHTML = '翻转180度'
+            　　break;
+        }
+    }
+    // 添加事件监听
+    window.addEventListener('resize', function(){
+        orientationChange();
+    // console.log(window.screen.orientation) 这是一个对象
+    },false);
+    </script>
+</body>
+</html>
