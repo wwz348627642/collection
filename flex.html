@@ -12,7 +12,12 @@
 			border:1px #000 solid;
 			width:600px;
 			height:400px;
-			display: flex;
+			display: -webkit-flex; /* 虽然很多，为了兼容  */
+  			display: -webkit-box;
+  			display: -moz-box;
+  			display: -o-box;
+  			display: -ms-flexbox;
+			 display: flex;
 			justify-content: center; /* 水平居中 */
 			align-items:center;		/* 垂直居中 */
 			 flex-direction:column;/* 子元素排列方向  */
