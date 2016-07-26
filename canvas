@@ -35,6 +35,28 @@
 			c.lineTo(600, 160);
 			c.closePath();
 			c.stroke();						// 描边
+			
+			
+			// 高级用法
+			// 1.加载图片
+			var image = new Image();
+
+			// 2.加载资源
+			image.src = "miao.jpg";
+
+			// 3.加载完毕, 绘制图片
+			image.onload = function (){
+				// 3个参数 img, x, y
+
+
+				// 5个参数 img, x, y, width, height
+				// c.drawImage(image, 50, 50, 400, 300);
+
+
+				// 9个参数 img, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight;
+				// sourceX 和 sourceY 控制从哪开始裁剪, sourceWidth 和 sourceHeight 控制裁剪区域大小
+				c.drawImage(image, 80, 40, 250, 150, 100, 100, 250, 150); 
+			}
 		}
 	</script>
 </body>
