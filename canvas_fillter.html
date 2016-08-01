@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>canvas</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    #blur-div {
+      width: 350px;
+      height: 600px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    #blur-img {
+      display: block;
+      width: 350px;
+      height: 600px;
+      margin: 0 auto;
+
+      -webkit-filter: blur(20px);
+      -o-filter: blur(20px);
+      filter: blur(20px);
+
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 0;
+    }
+
+    #canvas {
+      display: block;
+      margin: 0 auto;
+
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 10;
+    }
+
+    .btn {
+      display: block;
+      width: 100px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    #left-btn {
+      position: absolute;
+      left: 50px;
+      bottom: -40px;
+      background: #f00;
+    }
+
+    #right-btn {
+      position: absolute;
+      right: 50px; 
+      bottom: -40px;
+      background: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div id="blur-div">
+    <img src="20160114084749_r2_c2.png" id="blur-img" width="350" height="600">
+    <canvas id="canvas"></canvas>
+    <button class="btn" id="left-btn">reset</button>
+    <button class="btn" id="right-btn">show</button>
+  </div>
+  <script>
+  window.onload = function (){
+    var canvasWidth = 350;
+    var canvasHeight = 600;
+    var canvas = document.querySelector('#canvas');
+    var context = canvas.getContext("2d");
+    var show_btn = document.querySelector('#right-btn').addEventListener('click', show, false);
+    var reset_btn = document.querySelector('#left-btn').addEventListener('click', reset, false);
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+
+    var image = new Image();
+    var radius = 50;
+    var clippingRegion = {
+      x: -1,
+      y: -1,
+      r: radius
+    }
+    image.src = "20160114084749_r2_c2.png";
+    // 初始化
+    image.onload = function (e){
+      initCanvas();
+    }
+
+    function initCanvas(){
+      clippingRegion = {
+        x: Math.random() * (canvas.width - 2 * radius) + radius,
+        y: Math.random() * (canvas.height - 2 * radius) + radius,
+        r: radius
+      }
+      draw( image, clippingRegion ); 
+    }
+    // 创建剪辑区
+    function setClippingRegion(clippingRegion){
+      context.beginPath();
+      context.arc(clippingRegion.x, clippingRegion.y, clippingRegion.r, 0, Math.PI * 2, false);
+      context.clip();
+    }
+    // 将图片布置在canvas
+    function draw(image, clippingRegion){
+      context.clearRect(0, 0, canvas.width, canvas.height);
+      context.save();
+      setClippingRegion(clippingRegion);
+      context.drawImage(image, 0, 0, canvas.width, canvas.height);
+      context.restore();
+    }
+
+    function reset(){
+      initCanvas();
+    }
+
+    function show(){ 
+      var limit = setInterval(function(){
+            clippingRegion.r += 20;
+            draw( image, clippingRegion);
+            if(clippingRegion.r > Math.sqrt( Math.pow(canvas.width, 2) + Math.pow(canvas.height, 2))){
+              clearInterval(limit);
+            }
+        },30)
+      }
+  }
+  </script>
+</body>
+</html>
