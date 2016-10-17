@@ -1,3 +1,0 @@
-苹果系统在滚动长页面的时候总是滚的很不爽，不利索，回弹效果，加一句代码：-webkit-overflow-scrolling : touch;
-video默认控制器隐藏：video::-webkit-media-controls-enclosure { display:none!important;} 
-element.scrollIntoView(),让元素滚动到可视区域内
