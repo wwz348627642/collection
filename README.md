@@ -7,3 +7,6 @@
 
 ### Promise / async / await （还不完全理解，加油加油）
 - https://wohugb.gitbooks.io/ecmascript-6/content/docs/promise.html
+
+### css性能优化
+- https://zhuanlan.zhihu.com/p/22356755
