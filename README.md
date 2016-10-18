@@ -1,5 +1,6 @@
 ### RegExP
-https://segmentfault.com/a/1190000002471140
+https://segmentfault.com/a/1190000002471140  常用的API
+http://www.regexr.com/ 在线验证
 
 ### 格式化日期
 http://momentjs.cn/
