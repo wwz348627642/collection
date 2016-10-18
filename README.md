@@ -5,7 +5,7 @@
 ### 格式化日期
 - http://momentjs.cn/
 
-### Promise / async / await （还不完全理解，加油加油）
+### Promise / async / await （是时候理解装饰器了）
 - https://wohugb.gitbooks.io/ecmascript-6/content/docs/promise.html
 
 ### css性能优化
