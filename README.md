@@ -10,3 +10,6 @@
 
 ### css性能优化
 - https://zhuanlan.zhihu.com/p/22356755
+
+### console花式用法
+- https://zhuanlan.zhihu.com/p/23080626
