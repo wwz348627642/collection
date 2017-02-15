@@ -13,3 +13,6 @@
 
 ### console花式用法
 - https://zhuanlan.zhihu.com/p/23080626
+
+### 离线存储
+- https://segmentfault.com/a/1190000000732617
