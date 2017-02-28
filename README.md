@@ -16,3 +16,6 @@
 
 ### 离线存储
 - https://segmentfault.com/a/1190000000732617
+
+### indexDB
+- http://javascript.ruanyifeng.com/bom/indexeddb.html
