@@ -1,0 +1,26 @@
+.directive('ngEnter', function () {
+  return function (scope, element, attrs) {
+    element.bind("keydown keypress", function (event) {
+
+      // 判断是否按下了回车
+      if (event.which === 13) {
+        // 判断是否按下了组合键
+        if (!event.ctrlKey && !event.metaKey && !event.shiftKey) {
+          scope.$apply(function () {
+            scope.$eval(attrs.ngEnter);
+          });
+        } else {
+          
+          // 将当前的ngModel上的数据加上换行符替换，
+          // 现在是写死的只有两层数据，并不完美。类似于var obj = { content: {} }
+          var arr = attrs.ngModel.split('.');
+          scope.$apply(function () {
+            scope[arr[0]][arr[1]] = scope[arr[0]][arr[1]] + '\n';
+          })
+
+        } 
+        event.preventDefault();
+      }
+    });
+  };
+});
