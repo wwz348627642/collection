@@ -19,3 +19,6 @@
 
 ### indexDB
 - http://javascript.ruanyifeng.com/bom/indexeddb.html
+
+### Mocha测试框架
+- http://www.ruanyifeng.com/blog/2015/12/a-mocha-tutorial-of-examples.html
