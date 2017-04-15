@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script src="http://mockjs.com/dist/mock.js"></script>
+	<script>
+		var data = Mock.mock({
+			'list|1-10': [{ 'id|+1': 1, 'age|20-30': 100 }],
+			'name': '@name',
+			'color': '@color',
+			'url': '@url'
+		})
+
+		// 配置模拟数据
+		Mock.mock('/api', {
+			'name': '@name',
+			'age|1-100': 100,
+			'color': '@color',
+			'id|+1': 1 
+		})
+		
+
+		// 发送请求
+		function ajax () {
+			return new Promise(function (resolve, reject) {
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET', '/api', true);
+				xhr.responseType = "json";
+		    xhr.setRequestHeader("Accept", "application/json");
+		    xhr.onreadystatechange = function() {
+					if (this.readyState === 4 && this.status === 200) {
+						resolve(xhr.response)
+					}
+				}
+				xhr.send();
+			})
+		}
+
+		ajax().then(res => console.log(res));
+
+
+
+	</script>
+</body>
+</html>
