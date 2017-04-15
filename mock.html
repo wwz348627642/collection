@@ -23,14 +23,22 @@
 		})
 		
 
+		// const makeRequest = () => {
+		// 	getJSON()
+		// 		.then(res => console.log(res));
+		// }
+
+		// makeRequest()
+
+
 		// 发送请求
-		function ajax () {
+		function getJSON () {
 			return new Promise(function (resolve, reject) {
 				var xhr = new XMLHttpRequest();
 				xhr.open('GET', '/api', true);
 				xhr.responseType = "json";
-		    xhr.setRequestHeader("Accept", "application/json");
-		    xhr.onreadystatechange = function() {
+		   		xhr.setRequestHeader("Accept", "application/json");
+		    		xhr.onreadystatechange = function() {
 					if (this.readyState === 4 && this.status === 200) {
 						resolve(xhr.response)
 					}
@@ -39,7 +47,15 @@
 			})
 		}
 
-		ajax().then(res => console.log(res));
+		let makeRequest = async () => {
+			var value1 = await getJSON();
+			var value2 = await getJSON();
+			console.log(value1);
+			console.log(value2);
+		}
+
+
+		makeRequest()
 
 
 
