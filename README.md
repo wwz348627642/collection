@@ -31,3 +31,6 @@
 
 ### AudioContext
 - http://www.yi-jy.com/2015/05/31/web-audio/
+
+### webRTC 检测，promise使用检测 ，and so on。
+- https://www.webrtc-experiment.com/DetectRTC/
