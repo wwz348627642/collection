@@ -34,3 +34,6 @@
 
 ### webRTC 检测，promise使用检测 ，and so on。
 - https://www.webrtc-experiment.com/DetectRTC/
+
+### 物理运动
+- http://www.cnblogs.com/xiaohuochai/p/5973556.html
