@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Figure</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		#canvas {
+			border: 1px #ddd solid;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="canvas"></canvas>
+	<script>
+		// 单链表节点
+		class Node {
+			constructor (data) {
+				this.data = data
+				this.next = null
+			}
+		}
+		// 单链表
+		class SinglyList {
+			constructor () {
+				this.head = null				
+				this.length = 0
+			}
+			add (data) {
+				let node = new Node(data),
+				    currentNode = this.head
+
+				// 如果是第一个节点
+				if (!currentNode) {
+					this.head = node
+					this.length ++
+					return node
+				}
+
+				// 如果是后续节点
+				while (currentNode.next) {
+					currentNode = currentNode.next
+				}
+				currentNode.next = node
+				this.length ++
+				return node		
+			}
+			remove (position) {
+				// 处理异常
+				if (position > -1 && position < this.length){
+          let current = this.head,
+            previous,
+            index = 0
+          //移除第一个元素
+          if (position === 0){
+            //移除第一项，相当于head = null;
+            this.head = current.next
+          } else {
+            //循环链表，找到正确位置，循环完毕，previous，current分别是被添加元素的前一个和后一个元素
+            while (index++ < position){
+                previous = current
+                current = current.next
+            }
+            //链接previous和current的下一个元素，也就是把current移除了
+            previous.next = current.next
+          }
+          this.length --
+          return current.element;
+        } else {
+            return null;
+        }
+			}
+		}
+		// 点对象
+		class Point {
+			constructor (config) {
+				this.x = config.x || 0
+				this.y = config.y || 0
+				this.width = config.width || 5
+				this.color = config.color || '#333'
+			}
+			slowHide () {
+				this.width -= 0.5
+			}
+		}
+
+		class Game {
+			constructor (config) {
+				this.el = document.getElementById(config.id)
+				this.ctx = this.el.getContext('2d')
+				this.width = config.width || window.innerWidth
+				this.height = config.height || window.innerHeight
+				this.init()
+				this.draw()
+			}
+			init () {
+				// 用链表收集待绘制信息
+		    this.points = new SinglyList()
+				this.el.addEventListener('mousemove', this.mouseMoveCallBack.bind(this))
+		    this.el.width = this.width
+		    this.el.height = this.height
+			}
+			mouseMoveCallBack (event) {
+				var point = new Point({
+					x: event.clientX,
+					y: event.clientY,
+				})
+				this.points.add(point)
+			}
+			draw () {
+				var that = this
+				var timeout = function () {
+					that.ctx.clearRect(0, 0, that.width, that.height)
+					that.drawLine()
+					requestAnimationFrame(timeout)
+				}
+				timeout()
+			}
+			drawLine () {
+				if (!this.points.length) {
+					return
+				}
+				let current = this.points.head, 
+						next
+				while (current.next) {
+					next = current.next
+					if (current.data.width < 1) {
+						this.points.remove(0)
+					}
+					this.ctx.beginPath()
+					this.ctx.save()
+					this.ctx.fillStyle = current.data.color;
+          this.ctx.strokeStyle = current.data.color;
+          this.ctx.lineWidth = current.data.width;
+          this.ctx.moveTo(current.data.x, current.data.y)
+          this.ctx.lineTo(next.data.x, next.data.y)
+          this.ctx.stroke()
+          this.ctx.restore()
+          current.data.slowHide()
+					current = next
+				}
+			}
+		}	
+
+		var game = new Game({
+			id: 'canvas'
+		})
+	</script>
+</body>
+</html>
