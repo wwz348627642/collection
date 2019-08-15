@@ -52,3 +52,6 @@
 
 ### git 可视化记录
 - https://forkapp.io/home
+
+### 图床压缩
+- https://tinypng.com/
