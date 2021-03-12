@@ -55,3 +55,6 @@
 
 ### 图床压缩
 - https://tinypng.com/
+
+### 各种文件类型 对应的MIME
+- https://cloud.tencent.com/developer/article/1402031
