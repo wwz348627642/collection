@@ -1,6 +1,0 @@
-<script src=”../../js/mootools-core-1.4.5-full-nocompat.js”></script>
-<script src=”../../js/pinyin.js”></script>
-
-使用：
-var pinyin = new Pinyin();
-alert(pinyin.getFullChars('中文转拼音'));
