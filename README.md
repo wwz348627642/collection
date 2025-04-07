@@ -58,3 +58,6 @@
 
 ### 各种文件类型 对应的MIME
 - https://cloud.tencent.com/developer/article/1402031
+
+### 几乎无任何第三方库的特效
+- https://www.reactbits.dev/animations/splash-cursor
