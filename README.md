@@ -61,3 +61,6 @@
 
 ### 几乎无任何第三方库的特效
 - https://www.reactbits.dev/animations/splash-cursor
+
+### 简单使用SSE @microsoft/fetch-event-source
+- https://www.npmjs.com/package/@microsoft/fetch-event-source
